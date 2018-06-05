@@ -5,7 +5,6 @@
     "moduleResolution": "node",
     "outDir": "build",
     "rootDir": "server",
-    "strict": true,
-    "types": ["node"]
+    "strict": true
   }
 }
