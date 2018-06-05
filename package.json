@@ -2,7 +2,9 @@
   "name": "liftoff",
   "version": "0.1.0",
   "description": "here we go",
-  "scripts": {},
+  "scripts": {
+    "commitmsg": "commitlint -E GIT_PARAMS"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blvdgroup/liftoff.git"
@@ -12,5 +14,11 @@
   "bugs": {
     "url": "https://github.com/blvdgroup/liftoff/issues"
   },
-  "homepage": "https://github.com/blvdgroup/liftoff#readme"
+  "homepage": "https://github.com/blvdgroup/liftoff#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-conventional": "^7.0.1",
+    "commitlint": "^7.0.0",
+    "husky": "^0.14.3"
+  }
 }
