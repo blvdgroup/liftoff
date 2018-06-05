@@ -7,4 +7,9 @@ ADD . /app
 # install deps
 RUN yarn
 
-# TODO: start and run local server, will do later
+# build server
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["node", "build/index.js"]

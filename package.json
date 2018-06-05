@@ -6,6 +6,7 @@
     "build": "tsc",
     "commitmsg": "commitlint -E GIT_PARAMS",
     "lint": "tslint --project tsconfig.json",
+    "go": "docker build -t liftoff . && docker run -p 3000:80 liftoff",
     "precommit": "npm run lint"
   },
   "repository": {
