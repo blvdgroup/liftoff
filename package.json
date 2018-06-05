@@ -1,0 +1,16 @@
+{
+  "name": "liftoff",
+  "version": "0.1.0",
+  "description": "here we go",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blvdgroup/liftoff.git"
+  },
+  "author": "blvd",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/blvdgroup/liftoff/issues"
+  },
+  "homepage": "https://github.com/blvdgroup/liftoff#readme"
+}
