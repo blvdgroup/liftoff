@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["esnext", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "../build/client",
+    "rootDir": ".",
+    "strict": true,
+    "jsx": "react"
+  }
+}
