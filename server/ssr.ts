@@ -1,20 +1,20 @@
-import { ReactElement, isValidElement } from 'react'
+import { createElement, ComponentType, isValidElement } from 'react'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { Readable } from 'stream'
 import MultiStream from 'multistream'
 
 export default (path: string) => {
-  const root = (require(`../client/${path}`) as ReactElement<any>)
-  console.log(renderToString(root))
-  if (!isValidElement(root)) {
+  const Comp = (require(`../client/${path}`) as ComponentType<any>)
+  console.log(renderToString(createElement(Comp)))
+  if (!isValidElement(createElement(Comp))) {
     throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
   }
 
   console.log('Creating sheet')
   const sheet = new ServerStyleSheet()
   console.log('Collecting styles')
-  const jsx = sheet.collectStyles(root)
+  const jsx = sheet.collectStyles(createElement(Comp))
   console.log('Interleaving stream')
   const baseStream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
 
