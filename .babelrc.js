@@ -3,8 +3,8 @@ const NODE_VERSION = "10.3" // TODO - depend on NODE_VERSION file?
 const buildEnv = process.env.LIFTOFF_BUILDTARG
 const envTargets = {
   client: {
-    "browsers": ["> 5%", "last 2 versions"] // TODO - will eventually widen the
-                                            // range and see how it goes
+    // TODO - will eventually widen the range and see how it goes
+    "browsers": [">1% in us", "not ie 11", "not op_mini all"] 
   },
   server: {
     "node": NODE_VERSION
