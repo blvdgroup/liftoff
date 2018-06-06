@@ -1,9 +1,11 @@
 import * as Koa from 'koa'
 
+import ssr from './ssr'
+
 const app = new Koa()
 
 app.use(ctx => {
-  ctx.body = 'Hello World!'
+  ctx.body = ssr('index')
 })
 
 app.listen(80)
