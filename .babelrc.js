@@ -11,13 +11,13 @@ const envTargets = {
   }
 }
 
-const dev = NODE_ENV === 'deveoplment'
+const dev = process.env.NODE_ENV === 'development'
 
 const presets = [
   "@babel/preset-typescript",
   ["@babel/preset-react",
     { development: dev }
-  ]  
+  ],
   ["@babel/preset-env",
     { "targets": envTargets[buildEnv] }
   ]

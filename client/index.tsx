@@ -1,12 +1,12 @@
 import * as React from 'react'
+import styled from 'styled-components'
 
-interface IndexProps {
-  time: string
-}
+const Header = styled.h1`
+  color: red;
+`
 
-export default ({ time }: IndexProps) => (
+module.exports = () => (
   <div>
-    <h1>Hello world!</h1>
-    <h2>The time is {time}.</h2>
+    <Header>Hello world!</Header>
   </div>
 )
