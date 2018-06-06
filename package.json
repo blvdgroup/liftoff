@@ -9,7 +9,7 @@
     "commitmsg": "commitlint -E GIT_PARAMS",
     "lint": "tslint --project client/tsconfig.json && tslint --project server/tsconfig.json",
     "go": "cross-env NODE_ENV=development docker build -t liftoff . && cross-env NODE_ENV=development docker run -p 3000:80 --name liftoff-local liftoff",
-    "stop": "docker stop liftoff-local && docker rm liftoff-local", 
+    "stop": "docker stop liftoff-local && docker rm liftoff-local",
     "precommit": "npm run lint"
   },
   "repository": {
@@ -48,6 +48,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "rimraf": "^2.6.2",
+    "signale": "^1.1.0",
     "styled-components": "^3.3.2",
     "typescript": "^2.9.1"
   }

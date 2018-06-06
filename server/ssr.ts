@@ -1,23 +1,29 @@
 import { createElement, ComponentType, isValidElement } from 'react'
-import { renderToString, renderToNodeStream } from 'react-dom/server'
+import { renderToNodeStream } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { Readable } from 'stream'
 import MultiStream from 'multistream'
 
+const signale = require('signale') // temporary until we get some typings going
+
+const logger = signale.scope('SSR')
+
 export default (path: string) => {
   const Comp = (require(`../client/${path}`) as ComponentType<any>)
-  console.log(renderToString(createElement(Comp)))
   if (!isValidElement(createElement(Comp))) {
     throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
   }
 
-  console.log('Creating sheet')
+  logger.time(`Render ${path}`)
+  logger.debug('Creating ServerStyleSheet')
   const sheet = new ServerStyleSheet()
-  console.log('Collecting styles')
+  logger.debug('Collecting styles from element')
   const jsx = sheet.collectStyles(createElement(Comp))
-  console.log('Interleaving stream')
+  logger.debug('Interleaving node stream with styles')
   const baseStream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
+  logger.timeEnd(`Render ${path}`)
 
+  logger.debug('Creating header and footer streams')
   const header = '<html><head><title>liftoff</title></head><body>' // TODO: allow header customization
   const footer = '</body></html>'
 
@@ -29,5 +35,6 @@ export default (path: string) => {
   footerStream.push(footer)
   footerStream.push(null)
 
+  logger.info(`Created render stream of ${path}`)
   return MultiStream([headerStream, baseStream, footerStream])
 }
