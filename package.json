@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "here we go",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf build && tsc --project client/tsconfig.json && tsc --project server/tsconfig.json",
     "commitmsg": "commitlint -E GIT_PARAMS",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "tslint --project client/tsconfig.json && tslint --project server/tsconfig.json",
     "go": "docker build -t liftoff . && docker run -p 3000:80 liftoff",
     "precommit": "npm run lint"
   },
@@ -22,7 +22,6 @@
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
-    "@types/node": "^10.3.1",
     "commitlint": "^7.0.0",
     "husky": "^0.14.3",
     "tslint": "^5.10.0",
@@ -30,7 +29,11 @@
   },
   "dependencies": {
     "@types/koa": "^2.0.46",
+    "@types/node": "^10.3.1",
+    "@types/react": "^16.3.16",
+    "@types/react-dom": "^16.0.6",
     "koa": "^2.5.1",
+    "rimraf": "^2.6.2",
     "typescript": "^2.9.1"
   }
 }
