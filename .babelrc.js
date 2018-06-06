@@ -15,18 +15,18 @@ const dev = NODE_ENV === 'deveoplment'
 
 const presets = [
   "@babel/preset-typescript",
-  [
-    "@babel/preset-react",
-    {
-      development: dev
-    }
+  ["@babel/preset-react",
+    { development: dev }
   ]  
-  [
-    "@babel/preset-env",
-    {
-      "targets": envTargets[buildEnv]
-    }
+  ["@babel/preset-env",
+    { "targets": envTargets[buildEnv] }
   ]
 ]
 
-module.exports = { presets }
+const plugins = [
+  ["babel-plugin-styled-components", {
+    ssr: true
+  }]
+]
+
+module.exports = { presets, plugins }
