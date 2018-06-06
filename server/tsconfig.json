@@ -3,11 +3,7 @@
   "compilerOptions": {
     "target": "es2017",
     "lib": ["esnext", "dom"],
-    "module": "commonjs",
-    "moduleResolution": "node",
     "outDir": "../build/server",
-    "rootDir": ".",
-    "strict": true,
-    "esModuleInterop": true
+    "rootDir": "."
   }
 }
