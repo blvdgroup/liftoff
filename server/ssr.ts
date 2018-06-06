@@ -4,7 +4,8 @@ import { ServerStyleSheet } from 'styled-components'
 import { Readable } from 'stream'
 import MultiStream from 'multistream'
 
-const signale = require('signale') // temporary until we get some typings going
+// TODO: add typings for this module
+import signale from 'signale'
 
 const logger = signale.scope('SSR')
 
