@@ -5,8 +5,20 @@ declare module 'signale' {
     label: string
   }
 
+  interface SignaleConfig {
+    displayScope?: boolean
+    displayBadge?: boolean
+    displayDate?: boolean
+    displayFilename?: boolean
+    displayLabel?: boolean
+    displayTimestamp?: boolean
+    underlineLabel?: boolean
+    underlineMessage?: boolean
+  }
+
   interface SignaleOptions<Types extends string = DefaultMethods> {
-    config: any
+    config?: SignaleConfig
+    scope?: any
     types: { [K in Types]: CommandType }
     interactive?: boolean
     timers?: Map<string, Date>
@@ -22,6 +34,7 @@ declare module 'signale' {
     timestamp: string
     filename: string
 
+    config<TMethods extends DefaultMethods>(configObj: SignaleConfig): Signale<TMethods>
     scope<TMethods extends DefaultMethods>(...name: string[]): Signale<TMethods>
     unscope(): void
     time(label: string): string
