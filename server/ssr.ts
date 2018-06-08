@@ -10,7 +10,7 @@ import signale from 'signale'
 const logger = signale.scope('SSR')
 
 export default (path: string) => {
-  const Comp = (require(`../client/${path}`) as ComponentType<any>)
+  const Comp = (require(`../client/${path}`).default as ComponentType<any>)
   if (!isValidElement(createElement(Comp))) {
     throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
   }
