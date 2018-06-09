@@ -1,47 +1,11 @@
+// Type definitions for Signale 1.1
+// Project: https://github.com/klauscfhq/signale
+// Definitions by: Resi Respati <https://github.com/resir014>
+//                 kingdaro <https://github.com/kingdaro>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module 'signale' {
-  interface CommandType {
-    badge: string
-    color: string
-    label: string
-  }
-
-  interface SignaleConfig {
-    displayScope?: boolean
-    displayBadge?: boolean
-    displayDate?: boolean
-    displayFilename?: boolean
-    displayLabel?: boolean
-    displayTimestamp?: boolean
-    underlineLabel?: boolean
-    underlineMessage?: boolean
-  }
-
-  interface SignaleOptions<Types extends string = DefaultMethods> {
-    config?: SignaleConfig
-    scope?: any
-    types: { [K in Types]: CommandType }
-    interactive?: boolean
-    timers?: Map<string, Date>
-    stream?: NodeJS.WriteStream
-  }
-
-  class SignaleBase {
-    constructor(options?: SignaleOptions)
-
-    scopeName: string
-    currentOptions: any
-    date: string
-    timestamp: string
-    filename: string
-
-    config<TMethods extends DefaultMethods>(configObj: SignaleConfig): Signale<TMethods>
-    scope<TMethods extends DefaultMethods>(...name: string[]): Signale<TMethods>
-    unscope(): void
-    time(label: string): string
-    timeEnd(label: string, span?: number): { label: string; span?: number }
-  }
-
-  type DefaultMethods =
+  export type DefaultMethods =
     | 'await'
     | 'complete'
     | 'error'
@@ -59,9 +23,48 @@ declare module 'signale' {
     | 'watch'
     | 'log'
 
-  type LoggerFunc = (message?: any, ...optionalArgs: any[]) => void
-  type Signale<TMethods extends DefaultMethods> = SignaleBase & Record<TMethods, LoggerFunc>
+  export interface CommandType {
+    badge: string
+    color: string
+    label: string
+  }
 
+  export interface SignaleConfig {
+    displayScope?: boolean
+    displayBadge?: boolean
+    displayDate?: boolean
+    displayFilename?: boolean
+    displayLabel?: boolean
+    displayTimestamp?: boolean
+    underlineLabel?: boolean
+    underlineMessage?: boolean
+  }
+
+  export interface SignaleOptions<TTypes extends string> {
+    config?: SignaleConfig
+    scope?: any
+    types: Record<TTypes, CommandType>
+    interactive?: boolean
+    timers?: Map<string, Date>
+    stream?: NodeJS.WriteStream
+  }
+
+  interface SignaleConstructor {
+    new <TTypes extends string = DefaultMethods>(options?: SignaleOptions<TTypes>): Signale<TTypes>
+  }
+
+  interface SignaleBase {
+    config<TTypes extends string = DefaultMethods>(configObj: SignaleConfig): Signale<TTypes>
+    scope<TTypes extends string = DefaultMethods>(...name: string[]): Signale<TTypes>
+    unscope(): void
+    time(label: string): string
+    timeEnd(label: string, span?: number): { label: string; span?: number }
+  }
+
+  type LoggerFunc = (message?: any, ...optionalArgs: any[]) => void
+  type Signale<TTypes extends string = DefaultMethods> = SignaleBase & Record<TTypes, LoggerFunc>
+
+  export const Signale: SignaleConstructor
   const singleton: Signale<DefaultMethods>
-  export = singleton
+  export default singleton
 }
