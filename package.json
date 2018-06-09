@@ -28,7 +28,7 @@
     "commitlint": "^7.0.0",
     "husky": "^0.14.3",
     "tslint": "^5.10.0",
-    "tslint-config-blvd": "^1.0.0-rc.1"
+    "tslint-config-blvd": "^1.0.0"
   },
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.49",
