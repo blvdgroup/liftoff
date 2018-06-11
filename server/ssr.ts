@@ -4,42 +4,16 @@ import { ServerStyleSheet } from 'styled-components'
 import { Readable } from 'stream'
 import MultiStream from 'multistream'
 
-type CustomLogger = 'remind' | 'santa'
-
-const options: SignaleOptions<CustomLogger> = {
-  stream: process.stdout,
-  scope: 'custom',
-  types: {
-    remind: {
-      badge: '**',
-      color: 'yellow',
-      label: 'reminder'
-    },
-    santa: {
-      badge: '🎅',
-      color: 'red',
-      label: 'santa'
-    }
-  }
-}
-
 // TODO: add typings for this module
-import signale, { Signale, SignaleOptions, DefaultMethods } from 'signale'
+import signale from 'signale'
 
 const logger = signale.scope('SSR')
-const customLogger = new Signale<CustomLogger>(options).scope<CustomLogger>('custom')
 
 export default (path: string) => {
   const Comp = require(`../client/${path}`).default as ComponentType<any>
   if (!isValidElement(createElement(Comp))) {
     throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
   }
-
-  // TODO: ignore this, just testing the signale declarations.
-  // that being said, I give up trying to make the `CustomLogger` type extend the default command set.
-  customLogger.remind('works')
-  customLogger.santa('works')
-  customLogger.debug('should still work')
 
   logger.time(`Render ${path}`)
   logger.debug('Creating ServerStyleSheet')
