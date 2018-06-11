@@ -127,5 +127,5 @@ declare module 'signale' {
     DefaultMethods: signale.DefaultMethods
   }
 
-  export default signale
+  export = signale
 }
