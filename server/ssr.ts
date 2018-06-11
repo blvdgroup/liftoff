@@ -3,7 +3,6 @@ import { renderToNodeStream } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 import { Readable } from 'stream'
 import MultiStream from 'multistream'
-import universal from 'react-universal-component'
 
 // TODO: add typings for this module
 import signale from 'signale'
@@ -11,19 +10,12 @@ import signale from 'signale'
 const logger = signale.scope('SSR')
 
 export default (path: string) => {
-  // const Comp = require(`../client/${path}`).default as ComponentType<any>
-  // if (!isValidElement(createElement(Comp))) {
-  //   throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
-  // }
+  const Comp = require(`../client/${path}`).default as ComponentType<any>
+  if (!isValidElement(createElement(Comp))) {
+    throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
+  }
 
   logger.time(`Render ${path}`)
-
-  // wrapping component with universal
-  const Comp = universal(() => import('../client/index'), { // todo: dynamic imports, bla bla
-    onError: () => { throw new Error('Tried to import an element, but universal encountered an error.') }
-  })
-
-  // styled-components styling
   logger.debug('Creating ServerStyleSheet')
   const sheet = new ServerStyleSheet()
   logger.debug('Collecting styles from element')
