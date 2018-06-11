@@ -11,15 +11,10 @@ import signale from 'signale'
 const logger = signale.scope('SSR')
 
 export default (path: string) => {
-  // const Comp = require(`../client/${path}`).default as ComponentType<any>
-  // if (!isValidElement(createElement(Comp))) {
-  //   throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
-  // }
-
   logger.time(`Render ${path}`)
 
   // wrapping component with universal
-  const Comp = universal(() => import('../client/index'), { // todo: dynamic imports, bla bla
+  const Comp = universal(() => import(`../client/${path}`), { // todo: dynamic imports, bla bla
     onError: () => { throw new Error('Tried to import an element, but universal encountered an error.') }
   })
 
