@@ -24,6 +24,8 @@ const presets = [
 ]
 
 const plugins = [
+  "@babel/plugin-syntax-dynamic-import",
+  "babel-plugin-universal-import",
   ["babel-plugin-styled-components", {
     ssr: true
   }]
