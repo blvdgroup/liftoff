@@ -4,7 +4,7 @@ const buildEnv = process.env.LIFTOFF_BUILDTARG
 const envTargets = {
   client: {
     // TODO - will eventually widen the range and see how it goes
-    "browsers": [">1% in us", "not ie 11", "not op_mini all"] 
+    "browsers": [">1% in us", "not ie 11", "not op_mini all"]
   },
   server: {
     "node": NODE_VERSION
@@ -26,7 +26,8 @@ const presets = [
 const plugins = [
   ["babel-plugin-styled-components", {
     ssr: true
-  }]
+  }],
+  "@babel/plugin-proposal-class-properties"
 ]
 
 module.exports = { presets, plugins }
