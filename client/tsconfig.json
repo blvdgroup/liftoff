@@ -6,5 +6,9 @@
     "outDir": "../build/client",
     "rootDir": ".",
     "jsx": "react"
-  }
+  },
+  "include": [
+    "./**/*.ts",
+    "../types/**/*.d.ts"
+  ]
 }

@@ -5,5 +5,9 @@
     "lib": ["esnext", "dom"],
     "outDir": "../build/server",
     "rootDir": "."
-  }
+  },
+  "include": [
+    "./**/*.ts",
+    "../types/**/*.ts"
+  ]
 }
