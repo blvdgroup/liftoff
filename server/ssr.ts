@@ -10,32 +10,42 @@ import signale from 'signale'
 const logger = signale.scope('SSR')
 
 export default (path: string) => {
-  const Comp = require(`../client/${path}`).default as ComponentType<any>
+  const Comp = require(`../client/pages/${path}`).default as ComponentType<any>
   if (!isValidElement(createElement(Comp))) {
     throw new Error('Tried to import an element, but it wasn\'t valid React - check your components.')
   }
 
-  logger.time(`Render ${path}`)
+  const wrappedElem = createElement(Comp)
+
+  logger.time(`Render ${path} time`)
   logger.debug('Creating ServerStyleSheet')
   const sheet = new ServerStyleSheet()
   logger.debug('Collecting styles from element')
-  const jsx = sheet.collectStyles(createElement(Comp))
+  const jsx = sheet.collectStyles(wrappedElem)
   logger.debug('Interleaving node stream with styles')
   const baseStream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx))
-  logger.timeEnd(`Render ${path}`)
 
   logger.debug('Creating header and footer streams')
-  const header = '<html><head><title>liftoff</title></head><body>' // TODO: allow header customization
+  const header = '<html><head><title>liftoff</title></head><body><div id="root">' // TODO: allow header customization
+  const midder = '</div>'
   const footer = '</body></html>'
 
   const headerStream = new Readable()
   headerStream.push(header)
   headerStream.push(null)
 
+  const midderStream = new Readable()
+  midderStream.push(midder)
+  midderStream.push(null)
+
+  // TODO - here we'll insert the first webpack chunks to import, between mid
+  // and footer
+
   const footerStream = new Readable()
   footerStream.push(footer)
   footerStream.push(null)
 
   logger.info(`Created render stream of ${path}`)
-  return MultiStream([headerStream, baseStream, footerStream])
+  logger.timeEnd(`Render ${path} time`)
+  return MultiStream([headerStream, baseStream, midderStream, footerStream])
 }
